@@ -1,0 +1,130 @@
+PixelSystem ps;
+
+void setup() {
+  size(2331, 1356);
+  ps = new PixelSystem(new PVector(width/2, 50));
+}
+
+void draw() {
+  background(0);
+  ps.addPixel();
+  ps.run();
+}
+
+
+// A class to describe a group of Pixels
+// An ArrayList is used to manage the list of Pixels 
+
+class PixelSystem {
+  ArrayList<Pixel> pixels;
+  PVector origin;
+
+  PixelSystem(PVector position) {
+    origin = position.copy();
+    pixels = new ArrayList<Pixel>();
+  }
+
+  void addPixel() {
+    pixels.add(new Pixel(origin));
+  }
+
+  void run() {
+    for (int i = pixels.size()-1; i >= 0; i--) {
+      Pixel p = pixels.get(i);
+      p.run();
+      if (p.isDead()) {
+        pixels.remove(i);
+      }
+    }
+  }
+}
+
+
+// Employee class
+
+class EmployeeAgent {
+  PVector position;
+  PVector velocity;
+  EmployeeAgent EmpManager;
+  color c_part;
+  
+    EmployeeAgent(PVector l) {
+    velocity = new PVector(random(-1, 1), random(-2, 0));
+    position = l.copy();
+    c_part = color(random(255), random(255), random(255));
+}
+
+  void run() {
+    update();
+    display();
+  }
+
+  // Method to update position
+  void update() {
+  }
+
+  // Method to display
+  void display() {
+  }
+
+}
+
+
+// A Customer class
+
+class CustomerAgent {
+  ArrayList<PVector> positions;
+  color PositionColors[];
+  color c_part;
+
+  
+}
+
+// A simple Pixel class
+
+class Pixel {
+  PVector position;
+  PVector velocity;
+  PVector acceleration;
+  float lifespan;
+  color c_part;
+  
+  
+
+  Pixel(PVector l) {
+    acceleration = new PVector(0, 0.05);
+    velocity = new PVector(random(-1, 1), random(-2, 0));
+    position = l.copy();
+    lifespan = 255.0;
+    c_part = color(random(255), random(255), random(255));
+  }
+
+  void run() {
+    update();
+    display();
+  }
+
+  // Method to update position
+  void update() {
+    velocity.add(acceleration);
+    position.add(velocity);
+    lifespan -= 1.0;
+  }
+
+  // Method to display
+  void display() {
+    stroke(c_part, lifespan);
+    fill(c_part, lifespan);
+    //ellipse(position.x, position.y, 8, 8);
+    rect(position.x, position.y, 8, 8);
+  }
+
+  // Is the pixel still useful?
+  boolean isDead() {
+    if (lifespan < 0.0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+}
