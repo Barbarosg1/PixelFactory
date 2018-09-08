@@ -1,18 +1,18 @@
 
-  
-//color[][] TColorPixels = new color[IMG_WIDTH][IMG_HEIGHT]; 
 boolean[][] TouchedPixels = new boolean[IMG_WIDTH][IMG_HEIGHT];
 int everyTenThousand = 0;
-boolean completed =false;
-//static public color lastcolor;
+boolean completed =false, locationIsSet = false;
+
 PixelFactory pfcust;
 
 class CWindow extends PApplet {
   PImage CustImgOj;
+  PixelFactoryPrj pfProj;
   public color lastcolor;
   
-  CWindow() {
+  CWindow(PixelFactoryPrj pfP) {
     super();
+    pfProj = pfP;
     PApplet.runSketch(new String[] {this.getClass().getSimpleName()}, this);
   }
 
@@ -23,20 +23,16 @@ class CWindow extends PApplet {
   void setup() {
     background(0);
     completed=false;
-    pfcust = new PixelFactory();
+    pfcust = pfProj.pf;
 
     CustImgOj = loadImage("C:\\barbaros\\FutureTellersPrj\\PixelFactoryPrj\\data\\coaa_960_1024.png"); 
 
     // Clear Touched matrix
     for (int i = 0; i < CustImgOj.width; i++) {
       for (int j = 0; j < CustImgOj.height; j++) {
-        //TColorPixels[i][j] = CustImgOj.get(i, j);
         TouchedPixels[i][j] = false;
-        
       }
     }
-
-
  }
 
   public color tellmeLastColor()
@@ -47,7 +43,6 @@ class CWindow extends PApplet {
   colorOfPos giveMeColor()
   {
       colorOfPos cop = new colorOfPos();
-
       
       if(pfOrg.orgType ==ORG_TYPE_HIERARCHY)
           pfcust.ask_to_boss();
@@ -60,6 +55,13 @@ class CWindow extends PApplet {
   }
   
   void draw() {
+    
+      if (!locationIsSet){
+          surface.setLocation(1150, 100);
+          surface.setTitle("Customer - Image to Complete"); 
+          locationIsSet = true;
+          println("Location is Set");
+        }
       colorOfPos cop = new colorOfPos();
       int imax = 100;
       loadPixels();
@@ -94,22 +96,10 @@ class CWindow extends PApplet {
       if (completed)
           {
           theme_changed = false;
-          /*pfPrj.redraw();
-          sfile.stop();
-          pfPrj.setup();*/
           setup();
-          println("After one turn" + theme_changed);
-          /*if (pfOrg.orgType == ORG_TYPE_HIERARCHY)
-              pfOrg.orgType = ORG_TYPE_SOCIOCRACY;
-          else
-            pfOrg.orgType = ORG_TYPE_HIERARCHY;
-*/
           }
 }
 
-  void mousePressed() {
-    println("mousePressed in secondary window");
-  }
   
   
 }
