@@ -20,7 +20,7 @@ void settings()
 
   //SET ORGANIZATION TYPE
   pfOrg = new Organization();
-  pfOrg.orgType = ORG_TYPE_SOCIOCRACY;
+  pfOrg.orgType = ORG_TYPE_HIERARCHY;
   
 }
 
