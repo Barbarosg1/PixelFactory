@@ -2,6 +2,10 @@
 Pixel Factory Project for Future Tellers 2018
 http://www.digilogue.com/future-tellers-2018/?lang=en
 
+***IMPORTANT NOTE***
+As the project paints two different windows at the same time , used trick did **not work on MAC OS X version of Processing**. Please use Windows or Linux version 3.4.
+
+
 ===
 
 How you built the community directly effects its performance regardless of how efficient and talented of its individual members. In
